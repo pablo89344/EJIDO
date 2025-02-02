@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -6,116 +5,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de Login</title>
-    <!-- Enlace a la hoja de estilos de Bootstrap 5 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
-</head>
-
-<body class="bg-light">
-
-    <!-- Sección de inicio de sesión -->
-    <div class="container d-flex flex-column justify-content-center align-items-center min-vh-100 custom-margin">
-
-        <div class="text-center mb-3">
-            <h1 class="fw-bold text-dark" style="font-size: 30px;">Bienvenido</h1>
-            <p class="text-muted" style="font-size: 14px;">Por favor, inicia sesión para continuar</p>
-        </div>
-
-      <!-- Contenedor para la imagen del logo -->
-      <div class="text-center mb-4">
-        <img src="{{ asset(path: 'imagenes/logolog.png') }}" class="imgtop img-fluid" alt="Imagen logo" style="max-width: 150px;">
-        </div>
-
-        <!-- Contenedor principal del formulario de inicio de sesión -->
-        <div class="card shadow-sm p-3" style="width: 100%; max-width: 350px; border-radius: 12px;">
-            <form method="POST" action="{{ route('login') }}">
-                @csrf <!-- Token de seguridad -->
-
-                <!-- Campo de nombre de usuario -->
-                <div class="mb-2">
-                    <label for="user_name" class="form-label fw-semibold" style="font-size: 14px;">Nombre de Usuario</label>
-                    <input type="text" class="form-control form-control-sm" id="user_name" name="user_name" placeholder="Ingresa tu usuario" required>
-                </div>
-
-                <!-- Campo de contraseña -->
-                <div class="mb-2">
-                    <label for="user_pass" class="form-label fw-semibold" style="font-size: 14px;">Contraseña</label>
-                    <input type="password" class="form-control form-control-sm" id="user_pass" name="user_pass" placeholder="Ingresa tu contraseña" required>
-                </div>
-
-                <!-- Botón de Login -->
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-success btn-sm fw-bold">login</button>
-                </div>
-            </form>
-
-            <!-- Mostrar errores si existen -->
-            @if ($errors->any())
-                <div class="alert alert-danger mt-2" role="alert" style="font-size: 12px;">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-        </div>
-
-    </div>
-
-    <!-- Pie de página -->
-    <footer class="text-center text-muted py-2 border-top" style="font-size: 12px;">
-        <small>&copy; 2024 - SDEVH - <a href="/Privacy" class="text-decoration-none">Privacidad</a></small>
-    </footer>
-
     <style>
-        /* Personalización de estilos */
-        body {
-            font-family: 'Inter', Arial, sans-serif;
-            font-size: 14px; /* Tamaño de fuente global */
-            background-color: #f8fafc;
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa; /* Fondo claro */
         }
 
-        .custom-margin {
-            margin-top: 35px; /* Ajusta este valor según tus necesidades */
+        .card {
+            width: 100%;
+            max-width: 450px; /* Ajuste el tamaño de la tarjeta */
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            background: #fff;
+            text-align: center;
+        }
+
+        .card h3 {
+            font-size: 1.8rem; /* Ajusté el tamaño del título */
+            margin-bottom: 20px;
+            color: #212529; /* Color de texto oscuro */
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            color: #6c757d;
+            margin-bottom: 25px;
         }
 
         .form-control {
-            border-radius: 8px;
-            background-color: #f1f5f9;
-            font-size: 13px; /* Reduce el tamaño de texto de los campos */
+            border-radius: 10px;
+            background-color: #eef2f7; /* Fondo claro para los campos */
+            font-size: 16px;
+            height: 45px; /* Ajuste de la altura de los campos */
         }
 
         .form-control:focus {
-            border-color: #0d6efd;
-            box-shadow: 0 0 6px rgba(13, 110, 253, 0.3);
+            border-color: #0d6efd; /* Color del borde al hacer foco */
+            box-shadow: 0 0 8px rgba(13, 110, 253, 0.3); /* Sombra de foco */
         }
 
         .btn-success {
             border-radius: 8px;
-            font-size: 13px; /* Reduce el tamaño del texto en el botón */
-            transition: transform 0.2s ease, background-color 0.2s ease;
-        }
-
-        .btn-success:hover {
-            background-color: #198754;
-            transform: scale(1.05);
-        }
-
-        .card {
-            background-color: #ffffff;
+            font-size: 18px;
+            height: 45px; /* Ajuste de la altura del botón */
+            transition: all 0.3s ease;
+            background-color: #28a745; /* Color de fondo del botón */
             border: none;
         }
 
-        footer a {
-            color: #0d6efd;
+        .btn-success:hover {
+            background-color: #218838; /* Color al pasar el mouse */
+            transform: translateY(-3px);
         }
 
-        footer a:hover {
-            text-decoration: underline;
+        .footer {
+            font-size: 14px;
+            color: #6c757d;
+            margin-top: 20px;
+        }
+
+        .footer-link {
+            text-decoration: none;
+            color: #0d6efd;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: #0056b3;
         }
     </style>
+</head>
 
-    <!-- Scripts de Bootstrap 5 -->
+<body>
+    <div class="card">
+        <h3 class="fw-bold">Plataforma Ejidal Villa de Huetamo </h3>
+        <p>Accede a tu cuenta para continuar</p>
+
+        <div class="text-center my-3">
+            <img src="{{ asset('imagenes/logolog.png') }}" alt="Logo" style="width: 120px;">
+        </div>
+
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
+
+            <div class="mb-3 text-start">
+                <label for="correo" class="form-label fw-semibold">Correo Electrónico</label>
+                <input type="text" class="form-control" id="correo" name="correo" placeholder="Ingresa tu correo" value="{{ old('correo') }}" required>
+                @error('correo')
+                    <div class="text-danger mt-2" style="font-size: 12px;">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="mb-3 text-start">
+                <label for="user_pass" class="form-label fw-semibold">Contraseña</label>
+                <input type="password" class="form-control" id="user_pass" name="user_pass" placeholder="Ingresa tu contraseña" required>
+                @error('user_pass')
+                    <div class="text-danger mt-2" style="font-size: 12px;">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-success fw-bold">Ingresar</button>
+            </div>
+        </form>
+
+        @if ($errors->any())
+            <div class="alert alert-danger mt-2" role="alert" style="font-size: 12px;">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+    </div>
+
+  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
