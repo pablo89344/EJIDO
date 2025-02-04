@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+
 class Usuarios extends Authenticatable
 {
     use HasFactory;
@@ -18,6 +19,10 @@ class Usuarios extends Authenticatable
         'user_name',
         'user_pass',
         'user_tipo',
+        'correo',
+        'direccion',
+        'numero_telefono',
+        
     ];
 
     /**
@@ -27,7 +32,6 @@ class Usuarios extends Authenticatable
      */
     protected $hidden = [
         'user_pass',
-       
     ];
 
     public function getAuthPassword()
