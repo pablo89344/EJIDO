@@ -80,6 +80,16 @@
         .footer-link:hover {
             color: #0056b3;
         }
+
+        .recover-password {
+            font-size: 0.9rem;
+            color: #0d6efd;
+            text-decoration: none;
+        }
+
+        .recover-password:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -120,6 +130,11 @@
             </div>
         </form>
 
+        <!-- Enlace de recuperación de contraseña -->
+        <div class="mt-3">
+            <a href="#" class="recover-password">¿Olvidaste tu contraseña?</a>
+        </div>
+
         @if ($errors->any())
             <div class="alert alert-danger mt-2" role="alert" style="font-size: 12px;">
                 <ul class="mb-0">
@@ -131,7 +146,6 @@
         @endif
     </div>
 
-  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
