@@ -1,3 +1,8 @@
+
+
+<main class="container mt-5">
+    @yield('content')
+</main>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -135,7 +140,7 @@
                     </li>
                     <!-- Enlace a Creación de Actas -->
                     <li class="nav-item">
-                        <a class="nav-link" href="/creacion-actas">
+                        <a class="nav-link" href="/actas">
                             <i class="fas fa-edit"></i> Creación de Actas
                         </a>
                     </li>

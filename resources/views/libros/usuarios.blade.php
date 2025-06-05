@@ -1,6 +1,5 @@
 @extends('layouts.app2')
 @section('content')
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,77 +9,106 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <style>
+        body {
+            font-size: 1rem;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .table {
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
         .table th {
-            background-color: #f8f9fa;
+            background-color: rgb(196, 196, 202);
+            color: #000 !important;
             text-align: left;
+            padding: 12px;
+        }
+        .table tbody tr {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+        .table tbody tr:hover {
+            background-color: #e9ecef;
         }
         .btn-custom {
             display: flex;
             align-items: center;
             gap: 5px;
         }
-        .container {
-            margin-top: 200px;
+        .btn-warning {
+            background-color: #0056b3 !important;
+            border-color: #004494 !important;
+            color: #fff !important;
         }
-        .boton{margin-top: 50px;}
+        .modal-content {
+            border-radius: 10px;
+        }
+        @media (max-width: 768px) {
+            .table {
+                font-size: 0.9rem;
+            }
+            .btn-custom {
+                font-size: 0.9rem;
+                padding: 8px 10px;
+            }
+        }
     </style>
 </head>
 <body>
-<div class="container mt-5">
-    <div class="mb-3">
-        <div class="boton">
-            <button type="button" class="btn btn-success fw-bold" data-bs-toggle="modal" data-bs-target="#modalCrearUsuario">
-                <i class="bi bi-person-plus"></i> Crear nuevo usuario
-            </button>
-        </div>
+<div class="container">
+    <div class="text-end mb-3">
+        <button type="button" class="btn btn-success fw-bold" data-bs-toggle="modal" data-bs-target="#modalCrearUsuario">
+            <i class="bi bi-person-plus"></i> Crear nuevo usuario
+        </button>
     </div>
-        
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>Dirección</th>
-                <th>Número de Teléfono</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($usuarios as $usuario)
-            <tr>
-                <td>{{ $usuario->id }}</td>
-                <td>{{ $usuario->user_name }}</td>
-                <td>{{ $usuario->correo }}</td>
-                <td>{{ $usuario->direccion }}</td>
-                <td>{{ $usuario->numero_telefono }}</td>
-                <td>
-                    <button type="button" class="btn btn-warning btn-sm btn-custom"
-                        data-bs-toggle="modal" data-bs-target="#modalEditarUsuario"
-                        onclick="cargarDatosModal(
-                            {{ $usuario->id }}, 
-                            '{{ $usuario->user_name }}',
-                            '{{ $usuario->correo }}',
-                            '{{ $usuario->direccion }}',
-                            '{{ $usuario->numero_telefono }}',
-                            '{{ $usuario->user_tipo }}'
-                        )">
-                        <i class="bi bi-pencil-square"></i> Editar
-                    </button>
-        
-                    <form action="{{ route('usuarios.destroy', $usuario->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" onclick="return confirm('¿Estás seguro de que quieres eliminar este usuario?')" class="btn btn-danger btn-sm btn-custom">
-                            <i class="bi bi-trash"></i> Eliminar
+    
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($usuarios as $usuario)
+                <tr>
+                    <td>{{ $usuario->id }}</td>
+                    <td>{{ $usuario->user_name }}</td>
+                    <td>{{ $usuario->correo }}</td>
+                    <td>{{ $usuario->direccion }}</td>
+                    <td>{{ $usuario->numero_telefono }}</td>
+                    <td class="d-flex gap-2">
+                        <button type="button" class="btn btn-warning btn-sm btn-custom"
+                            data-bs-toggle="modal" data-bs-target="#modalEditarUsuario"
+                            onclick="cargarDatosModal({{ $usuario->id }}, '{{ $usuario->user_name }}', '{{ $usuario->correo }}', '{{ $usuario->direccion }}', '{{ $usuario->numero_telefono }}', '{{ $usuario->user_tipo }}')">
+                            <i class="bi bi-pencil-square"></i> Editar
                         </button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+                        <form action="{{ route('usuarios.destroy', $usuario->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" onclick="return confirm('¿Estás seguro de eliminar este usuario?')" class="btn btn-danger btn-sm btn-custom">
+                                <i class="bi bi-trash"></i> Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
+
 
 <!-- Modal para editar usuario -->
 <div class="modal fade" id="modalEditarUsuario" tabindex="-1" aria-labelledby="modalEditarUsuarioLabel" aria-hidden="true">
