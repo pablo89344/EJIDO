@@ -14,55 +14,50 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f8f9fa; /* Fondo claro */
+            background-color: #f8f9fa;
         }
 
         .card {
-            width: 100%;
-            max-width: 450px; /* Ajuste el tamaño de la tarjeta */
+            width: 90%; /* Se ajusta al tamaño de la pantalla */
+            max-width: 450px;
             border-radius: 15px;
-            padding: 40px;
+            padding: 30px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             background: #fff;
             text-align: center;
         }
 
         .card h3 {
-            font-size: 1.8rem; /* Ajusté el tamaño del título */
-            margin-bottom: 20px;
-            color: #212529; /* Color de texto oscuro */
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: #212529;
         }
 
         .card p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #6c757d;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .form-control {
             border-radius: 10px;
-            background-color: #eef2f7; /* Fondo claro para los campos */
+            background-color: #eef2f7;
             font-size: 16px;
-            height: 45px; /* Ajuste de la altura de los campos */
-        }
-
-        .form-control:focus {
-            border-color: #0d6efd; /* Color del borde al hacer foco */
-            box-shadow: 0 0 8px rgba(13, 110, 253, 0.3); /* Sombra de foco */
+            height: 45px;
         }
 
         .btn-success {
             border-radius: 8px;
-            font-size: 18px;
-            height: 45px; /* Ajuste de la altura del botón */
+            font-size: 16px;
+            height: 45px;
             transition: all 0.3s ease;
-            background-color: #28a745; /* Color de fondo del botón */
+            background-color: #28a745;
             border: none;
         }
 
         .btn-success:hover {
-            background-color: #218838; /* Color al pasar el mouse */
-            transform: translateY(-3px);
+            background-color: #218838;
+            transform: translateY(-2px);
         }
 
         .footer {
@@ -71,35 +66,35 @@
             margin-top: 20px;
         }
 
-        .footer-link {
-            text-decoration: none;
-            color: #0d6efd;
-            transition: color 0.3s ease;
-        }
+        @media (max-width: 576px) {
+            .card {
+                padding: 20px;
+            }
 
-        .footer-link:hover {
-            color: #0056b3;
-        }
+            .card h3 {
+                font-size: 1.4rem;
+            }
 
-        .recover-password {
-            font-size: 0.9rem;
-            color: #0d6efd;
-            text-decoration: none;
-        }
+            .form-control {
+                font-size: 14px;
+                height: 40px;
+            }
 
-        .recover-password:hover {
-            text-decoration: underline;
+            .btn-success {
+                font-size: 14px;
+                height: 40px;
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="card">
-        <h3 class="fw-bold">Plataforma Ejidal Villa de Huetamo </h3>
+        <h3 class="fw-bold">Plataforma Ejidal Villa de Huetamo</h3>
         <p>Accede a tu cuenta para continuar</p>
 
         <div class="text-center my-3">
-            <img src="{{ asset('imagenes/logolog.png') }}" alt="Logo" style="width: 120px;">
+            <img src="{{ asset('imagenes/logolog.png') }}" alt="Logo" style="width: 100px;">
         </div>
 
         <form method="POST" action="{{ route('login') }}">
@@ -109,9 +104,7 @@
                 <label for="correo" class="form-label fw-semibold">Correo Electrónico</label>
                 <input type="text" class="form-control" id="correo" name="correo" placeholder="Ingresa tu correo" value="{{ old('correo') }}" required>
                 @error('correo')
-                    <div class="text-danger mt-2" style="font-size: 12px;">
-                        {{ $message }}
-                    </div>
+                    <div class="text-danger mt-2" style="font-size: 12px;">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -119,9 +112,7 @@
                 <label for="user_pass" class="form-label fw-semibold">Contraseña</label>
                 <input type="password" class="form-control" id="user_pass" name="user_pass" placeholder="Ingresa tu contraseña" required>
                 @error('user_pass')
-                    <div class="text-danger mt-2" style="font-size: 12px;">
-                        {{ $message }}
-                    </div>
+                    <div class="text-danger mt-2" style="font-size: 12px;">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -130,20 +121,9 @@
             </div>
         </form>
 
-        <!-- Enlace de recuperación de contraseña -->
         <div class="mt-3">
-            <a href="#" class="recover-password">¿Olvidaste tu contraseña?</a>
+            <a href="#" class="text-primary" style="font-size: 0.9rem;">¿Olvidaste tu contraseña?</a>
         </div>
-
-        @if ($errors->any())
-            <div class="alert alert-danger mt-2" role="alert" style="font-size: 12px;">
-                <ul class="mb-0">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
