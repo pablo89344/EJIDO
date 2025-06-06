@@ -12,7 +12,6 @@ class UsuarioController extends Controller
         $usuarios = Usuarios::all(); // Obtener todos los usuarios
         return view('libros.usuarios', compact('usuarios')); // Pasar la variable a la vista
     }
-    
 
     // Agregar nuevo usuario
     public function store(Request $request)
@@ -25,7 +24,6 @@ class UsuarioController extends Controller
             'correo' => 'required|email', // Validación del correo
             'direccion' => 'required|string', // Validación de la dirección
             'numero_telefono' => 'required|numeric', // Validación del número de teléfono
-            
         ]);
 
         // Crear el nuevo usuario con los datos proporcionados
@@ -36,10 +34,10 @@ class UsuarioController extends Controller
             'correo' => $request->correo, // Guardar el correo
             'direccion' => $request->direccion, // Guardar la dirección
             'numero_telefono' => $request->numero_telefono, // Guardar el número de teléfono
-            
         ]);
 
-        return redirect()->route('usuarios.index');
+        // Redirigir con mensaje de éxito
+        return redirect()->route('usuarios.index')->with('success', 'Usuario creado correctamente.');
     }
 
     // Actualizar usuario
@@ -56,7 +54,6 @@ class UsuarioController extends Controller
             'correo' => 'required|email', // Validación del correo
             'direccion' => 'required|string', // Validación de la dirección
             'numero_telefono' => 'required|numeric', // Validación del número de teléfono
-            
         ]);
 
         // Si la contraseña fue proporcionada, la encriptamos
@@ -70,14 +67,16 @@ class UsuarioController extends Controller
         // Actualizar los datos del usuario
         $usuario->update($validatedData);
 
-        // Redirigir al índice de usuarios
-        return redirect()->route('usuarios.index');
+        // Redirigir con mensaje de éxito
+        return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado correctamente.');
     }
 
     // Eliminar usuario
     public function destroy($id)
     {
         Usuarios::destroy($id);
-        return redirect()->route('usuarios.index');
+
+        // Redirigir con mensaje de eliminación
+        return redirect()->route('usuarios.index')->with('deleted', 'Usuario eliminado correctamente.');
     }
 }

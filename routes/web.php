@@ -1,11 +1,13 @@
 <?php
 
+namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\LibrosController;
 use App\Http\Controllers\ActaPosesionController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ActaController;
+
 
 
 Route::get('/', function () {
@@ -31,3 +33,16 @@ Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy'])->name('us
 
 
 Route::get('/actas', [ActaController::class, 'seleccionarTipo'])->name('seleccionar_tipo_acta');
+// Esta ruta muestra la vista actaposesion/actaposesion.blade.php
+Route::view('/actaposesion', 'actaposesion.actaposesion')->name('actaposesion');
+
+
+Route::get('/ver-pdf', [FirmaController::class, 'verPDF']);
+Route::get('/formulario', [FirmaController::class, 'mostrarFormulario']);
+Route::post('/procesar-formulario', [FirmaController::class, 'procesarFormulario']);
+
+
+
+Route::get('/acta/previsualizar/{folio}', [ActaController::class, 'previsualizar'])->name('acta.previsualizar');
+Route::get('/acta/editar/{folio}', [ActaController::class, 'editar'])->name('acta.editar');
+Route::get('/acta/continuar/{folio}', [ActaController::class, 'continuar'])->name('acta.continuar');
